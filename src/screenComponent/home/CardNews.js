@@ -1,23 +1,33 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from "react-native";
 import React from "react";
 import {
   AntDesign,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const CardNews = () => {
+  const navigation = useNavigation();
   return (
-    <View style={{ height: 342, backgroundColor: "white", borderRadius: 10 }}>
-      <View>
-        <Image source={require("../../storages/cardnews/news1.png")} />
+    <TouchableOpacity
+      onPress={() => navigation.navigate("DetailNews")}
+      style={{ backgroundColor: "white", borderRadius: 10 }}
+    >
+      <View style={{ backgroundColor: 'red', borderRadius: 10, overflow: 'hidden' }}>
+        <Image
+          source={require("../../storages/cardnews/news1.png")}
+          style={{
+            width: Dimensions.get('window').width * 0.86,
+          }}
+          resizeMode="cover"
+        />
       </View>
       <View
         style={{
-          width: 340,
-          height: 162,
           alignSelf: "center",
           marginVertical: 15,
+          width: Dimensions.get('window').width * 0.775,
         }}
       >
         <View
@@ -52,9 +62,9 @@ const CardNews = () => {
             </Text>
           </View>
         </View>
-        <View style={{ height: 30, height: 340, marginTop: 10 }}>
+        <View style={{ marginTop: 10 }}>
           <Text
-            style={{ height: 40, width: 340, fontSize: 16, fontWeight: 700 }}
+            style={{ height: 40, fontSize: 16, fontWeight: 700 }}
           >
             Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo
           </Text>
@@ -83,8 +93,11 @@ const CardNews = () => {
               </Text>
             </View>
           </View>
-          <View style={{ marginVertical: 10 }}>
-            <Image source={require("../../storages/cardnews/bar1.png")} />
+          <View style={{
+            backgroundColor: "#D9D9D9", borderRadius: 10,
+            marginVertical: Dimensions.get('window').height * 0.005,
+          }}>
+            <View style={{ width: '10%', height: 7, backgroundColor: "#FF617D", borderRadius: 10 }}></View>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="gift-outline" size={12} color="#FF617D" />
@@ -131,7 +144,7 @@ const CardNews = () => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,20 +1,10 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
 import React from "react";
 import CardSave from "../screenComponent/save/CardSave";
 
 const Save = () => {
   return (
-    <View style={{ flex: 1 }}>
-      <Image
-        source={require("../storages/endbackground.png")}
-        style={{
-          position: "absolute",
-          bottom: -75,
-          left: 0,
-          right: 0,
-          zIndex: -1,
-        }}
-      />
+    <View style={{ flex: 1, backgroundColor: "#FFF5F7" }}>
       <View
         style={{ height: 111, backgroundColor: "#FFDFE5", borderRadius: 25 }}
       >
@@ -23,17 +13,18 @@ const Save = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            marginHorizontal: 30,
-            marginTop: 45,
+            width: Dimensions.get('window').width * 0.9,
+            height: Dimensions.get('screen').height * 0.15,
+            marginHorizontal: Dimensions.get('window').width * 0.05,
+            marginTop: Dimensions.get('window').width * 0.02,
           }}
         >
           <View>
             <Text
               style={{
-                width: 120,
-                height: 27,
                 fontSize: 20,
                 fontWeight: "900",
+                width: Dimensions.get('window').width * 0.4,
               }}
             >
               Đã lưu
@@ -43,11 +34,30 @@ const Save = () => {
         </View>
       </View>
       <View
-        style={{ marginTop: 38, marginHorizontal: 30, alignSelf: "center" }}
+        style={{
+          marginTop: Dimensions.get('window').height * 0.01,
+        }}
       >
         <CardSave />
       </View>
-    </View>
+      <View
+        style={{
+          backgroundColor: "#FFF5F7",
+          width: Dimensions.get('window').width,
+          // transform: [{ translateX: 0 }, { translateY: -100 }],
+          position: "absolute",
+          bottom: 0,
+          zIndex: -10,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          source={require("../storages/endbackground.png")}
+          resizeMode="contain"
+        />
+      </View>
+    </View >
   );
 };
 

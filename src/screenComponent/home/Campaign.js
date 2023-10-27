@@ -1,45 +1,59 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
 import React from "react";
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 
 const Campaign = () => {
   return (
-    <View style={{ height: 340 }}>
+    <View style={{
+      marginTop: Dimensions.get('screen').height * 0.08,
+      width: Dimensions.get('screen').width * 0.9,
+    }}>
       <View
         style={{
           position: "absolute",
+          top: -45,
+          left: 0,
+          right: 0,
           flexDirection: "row",
-          alignSelf: "center",
-          top: 0,
+          width: Dimensions.get('window').width * 0.9,
+          alignItems: "flex-start",
+          justifyContent: 'space-between'
         }}
       >
         <Image source={require("../../storages/person1.png")} />
-        <Text style={{ marginTop: 45, fontWeight: "700", fontSize: 20 }}>
-          CHIẾN DỊCH CỦA BẠN
-        </Text>
+        <View style={{}}></View>
         <Image source={require("../../storages/person2.png")} />
       </View>
+
+      <View
+        style={{ justifyContent: 'flex-end', alignItems: 'center' }}
+      >
+        <Text style={{ fontWeight: "700", fontSize: 20 }}>
+          CHIẾN DỊCH CỦA BẠN
+        </Text>
+      </View>
+
       <View
         style={{
-          height: 253,
           backgroundColor: "#FFB1BF",
-          marginTop: 100,
+          marginTop: 15,
           borderRadius: 10,
+          width: Dimensions.get('screen').width * 0.9,
         }}
       >
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            marginHorizontal: 20,
-            marginTop: 20,
+            marginHorizontal: Dimensions.get('screen').width * 0.03,
+            marginTop: Dimensions.get('screen').height * 0.015,
           }}
         >
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-around",
-              width: 150,
+              width: Dimensions.get('window').width * 0.3,
               alignItems: "center",
             }}
           >
@@ -55,17 +69,17 @@ const Campaign = () => {
             </Text>
           </View>
         </View>
+
         <View
           style={{
             height: 50,
-            marginLeft: 25,
+            marginHorizontal: Dimensions.get('screen').width * 0.04,
             marginTop: 10,
           }}
         >
           <Text
             style={{
-              width: 330,
-              height: 35,
+              color: '#000',
               letterSpacing: 0.5,
               fontWeight: "700",
             }}
@@ -73,37 +87,46 @@ const Campaign = () => {
             Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo
           </Text>
         </View>
+
         <View
           style={{
-            height: 160,
             backgroundColor: "black",
-
             borderRadius: 10,
+            width: Dimensions.get('screen').width * 0.9,
           }}
         >
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-around",
-              marginHorizontal: 5,
-              marginTop: 8,
+              width: Dimensions.get('window').width * 0.82,
+              justifyContent: "space-between",
+              marginHorizontal: Dimensions.get('window').width * 0.04,
+              marginVertical: Dimensions.get('window').height * 0.015,
             }}
           >
-            <Image source={require("../../storages/img1.png")} />
-
-            <View>
+            <Image
+              source={require("../../storages/img1.png")}
+              style={{
+                width: Dimensions.get('window').width * 0.25,
+                borderRadius: 10,
+              }}
+            />
+            <View style={{
+              width: Dimensions.get('window').width * 0.54,
+              justifyContent: "space-around",
+            }}>
               <Text
-                style={{ color: "white", fontWeight: "900", marginBottom: 8 }}
+                style={{ color: "white", fontWeight: "900", fontSize: 14, lineHeight: 16.8 }}
               >
                 Hôm nay
               </Text>
               <View
                 style={{
-                  width: 251,
-                  height: 48,
+                  height: Dimensions.get('window').height * 0.06,
+                  justifyContent: 'center',
                   backgroundColor: "#FF617D",
                   borderRadius: 7,
-                  marginBottom: 18,
+                  marginBottom: Dimensions.get('window').height * 0.01,
                 }}
               >
                 <View
@@ -112,12 +135,12 @@ const Campaign = () => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginHorizontal: 10,
-                    marginVertical: 10,
                   }}
                 >
                   <View
                     style={{
                       flexDirection: "row",
+                      columnGap: 2,
                       alignItems: "center",
                       height: 30,
                     }}
@@ -125,7 +148,7 @@ const Campaign = () => {
                     <Ionicons name="gift-outline" size={15} color="black" />
                     <Text style={{ fontSize: 20, fontWeight: "900" }}>5</Text>
                   </View>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={{ flexDirection: "row", columnGap: 2, alignItems: "center", }}>
                     <View
                       style={{
                         width: 15,
@@ -152,6 +175,7 @@ const Campaign = () => {
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
+                      columnGap: 2,
                       height: 30,
                     }}
                   >
@@ -170,8 +194,13 @@ const Campaign = () => {
                   /70.000.000vnđ
                 </Text>
               </View>
-              <View style={{ marginVertical: 7 }}>
-                <Image source={require("../../storages/bar1.png")} />
+              <View style={{
+                marginVertical: Dimensions.get('window').height * 0.005,
+              }}>
+                {/* <Image source={require("../../storages/bar1.png")} /> */}
+                <View style={{ backgroundColor: "#D9D9D9", borderRadius: 10 }}>
+                  <View style={{ width: '10%', height: 7, backgroundColor: "#FF617D", borderRadius: 10 }}></View>
+                </View>
               </View>
               <View
                 style={{
@@ -182,7 +211,8 @@ const Campaign = () => {
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Ionicons name="gift-outline" size={10} color="#FF617D" />
                   <Text style={{ fontSize: 10, color: "#FF617D" }}>
-                    100<Text style={{ color: "#757575" }}>người ủng hộ</Text>
+                    100
+                    <Text style={{ color: "#757575" }}>người ủng hộ</Text>
                   </Text>
                 </View>
                 <Text style={{ fontSize: 10, color: "#757575" }}>

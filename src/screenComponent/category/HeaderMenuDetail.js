@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -11,114 +11,134 @@ const HeaderMenuDetail = () => {
   const navigation = useNavigation();
   const [screen, setScreen] = useState("screen1");
   return (
-    <View style={{ height: 165 }}>
+    <View style={{}}>
       <View
-        style={{ height: 108, backgroundColor: "#FFDFE5", borderRadius: 25 }}
+        style={{ borderRadius: 25 }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginHorizontal: 30,
-            marginTop: 48,
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <AntDesign
-              name="left"
-              size={35}
-              color="black"
-              onPress={() => navigation.goBack()}
-            />
-            <View
-              style={{
-                width: 35,
-                height: 35,
-                backgroundColor: "rgba(255, 97, 125, 0.5)",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 7,
-                marginHorizontal: 10,
-              }}
-            >
-              <Image source={require("../../storages/menu/logo11.png")} />
-            </View>
+        <View style={{
+          backgroundColor: "#FFDFE5",
+          borderBottomStartRadius: 16,
+          borderBottomEndRadius: 16,
+        }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginHorizontal: Dimensions.get("window").width * 0.075,
+              marginTop: Dimensions.get("window").height * 0.02,
+              height: Dimensions.get('screen').height * 0.15,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center", }}>
+              <AntDesign
+                name="left"
+                size={35}
+                color="black"
+                onPress={() => navigation.goBack()}
+              />
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  backgroundColor: "rgba(255, 97, 125, 0.5)",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 7,
+                  marginHorizontal: Dimensions.get('window').width * 0.02,
+                }}
+              >
+                <Image source={require("../../storages/menu/logo11.png")} />
+              </View>
 
-            <Text
-              style={{
-                width: 120,
-                height: 27,
-                fontSize: 20,
-                fontWeight: "900",
-              }}
-            >
-              Người già
-            </Text>
+              <Text
+                numberOfLines={1}
+                style={{
+                  width: Dimensions.get('window').width * 0.4,
+                  fontSize: 20,
+                  fontWeight: "900",
+                }}
+              >
+                Người già
+              </Text>
+            </View>
+            <Image source={require("../../storages/icon/bell.png")} />
           </View>
-          <Image source={require("../../storages/icon/bell.png")} />
         </View>
         <View style={{ flexDirection: "row" }}>
-          <View style={{ marginTop: 30 }}>
-            <View style={styles.tabContainer}>
-              <TouchableOpacity
-                onPress={() => setScreen("screen1")}
-                style={[styles.view]}
-              >
-                {screen === "screen1" ? (
-                  <Image source={require("../../storages/radio/radio1.png")} />
-                ) : (
-                  <Image source={require("../../storages/radio/radio.png")} />
-                )}
+          <View style={{}}>
+            <View style={{
+              backgroundColor: "#FFF5F7",
+              width: Dimensions.get('window').width * 0.8,
+              marginHorizontal: Dimensions.get('window').width * 0.1,
+            }}>
+              <View style={styles.tabContainer}>
+                <TouchableOpacity
+                  onPress={() => setScreen("screen1")}
+                  style={[styles.view]}
+                >
+                  {screen === "screen1" ? (
+                    <Image source={require("../../storages/radio/radio1.png")} />
+                  ) : (
+                    <Image source={require("../../storages/radio/radio.png")} />
+                  )}
 
-                <Text
-                  style={[
-                    styles.tabText,
-                    screen === "screen1" && styles.tabTextBold,
-                  ]}
+                  <Text
+                    style={[
+                      styles.tabText,
+                      screen === "screen1" && styles.tabTextBold,
+                    ]}
+                    numberOfLines={1}
+                  >
+                    Nổi bật
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setScreen("screen2")}
+                  style={[styles.view]}
                 >
-                  Nổi bật
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setScreen("screen2")}
-                style={[styles.view]}
-              >
-                {screen === "screen2" ? (
-                  <Image source={require("../../storages/radio/radio1.png")} />
-                ) : (
-                  <Image source={require("../../storages/radio/radio.png")} />
-                )}
+                  {screen === "screen2" ? (
+                    <Image source={require("../../storages/radio/radio1.png")} />
+                  ) : (
+                    <Image source={require("../../storages/radio/radio.png")} />
+                  )}
 
-                <Text
-                  style={[
-                    styles.tabText,
-                    screen === "screen2" && styles.tabTextBold,
-                  ]}
+                  <Text
+                    style={[
+                      styles.tabText,
+                      screen === "screen2" && styles.tabTextBold,
+                    ]}
+                    numberOfLines={1}
+                  >
+                    Mới
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setScreen("screen3")}
+                  style={[styles.view]}
                 >
-                  Mới
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setScreen("screen3")}
-                style={[styles.view]}
-              >
-                {screen === "screen3" ? (
-                  <Image source={require("../../storages/radio/radio1.png")} />
-                ) : (
-                  <Image source={require("../../storages/radio/radio.png")} />
-                )}
-                <Text
-                  style={[
-                    styles.tabText,
-                    screen === "screen3" && styles.tabTextBold,
-                  ]}
-                >
-                  Đang theo dõi
-                </Text>
-              </TouchableOpacity>
+                  {screen === "screen3" ? (
+                    <Image source={require("../../storages/radio/radio1.png")} />
+                  ) : (
+                    <Image source={require("../../storages/radio/radio.png")} />
+                  )}
+                  <Text
+                    style={[
+                      styles.tabText,
+                      screen === "screen3" && styles.tabTextBold,
+                    ]}
+                    numberOfLines={1}
+                  >
+                    Đang theo dõi
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={{}}>
+            <View style={{
+              height: Dimensions.get('window').height * 0.71,
+              width: Dimensions.get('window').width * 0.9,
+              marginHorizontal: Dimensions.get('window').width * 0.05,
+            }}>
               {screen === "screen1" && <HighLight />}
               {screen === "screen2" && <New />}
               {screen === "screen3" && <Following />}
@@ -126,7 +146,7 @@ const HeaderMenuDetail = () => {
           </View>
         </View>
       </View>
-    </View>
+    </View >
   );
 };
 
@@ -135,18 +155,15 @@ export default HeaderMenuDetail;
 const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    width: 368,
-    height: 48,
-    alignItems: "center",
-    alignSelf: "center",
-    marginHorizontal: 30,
+    justifyContent: "space-evenly",
+    marginVertical: Dimensions.get("window").height * 0.02,
   },
   tabText: {
     fontSize: 16,
     color: "#757575",
     fontWeight: "400",
     marginLeft: 5,
+
   },
   tabTextBold: {
     fontWeight: "bold",
@@ -154,8 +171,7 @@ const styles = StyleSheet.create({
   },
 
   view: {
-    width: 178,
-    height: 35,
+    width: "30%",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",

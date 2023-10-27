@@ -13,6 +13,7 @@ import Profile from "../screen/Profile";
 import OldMan from "../screen/OldMan";
 import Donation from "../screen/Donation";
 import DetailProfile from "../screen/DetailProfile";
+import DetailNews from "../screen/DetailNews";
 
 const HomeStack = createNativeStackNavigator();
 function HomeStacks() {
@@ -231,6 +232,7 @@ const RootStack = () => {
         <Stacks.Screen name="OldMan" component={OldMan} />
         <Stacks.Screen name="Donation" component={Donation} />
         <Stacks.Screen name="DetailProfile" component={DetailProfile} />
+        <Stacks.Screen name="DetailNews" component={DetailNews} />
       </Stacks.Navigator>
     </NavigationContainer>
   );

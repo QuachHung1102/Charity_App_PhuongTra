@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -24,36 +24,38 @@ const CardSave = () => {
         "Chồng mất vì tai biến, vợ bệnh tim lo các con thơ đói ăn, thất học",
     },
   ];
+
   return cardsave.map((data, index) => {
     return (
       <View
-        key={index}
-        style={{ height: 100, flexDirection: "row", width: 368, marginTop: 30 }}
+        key={data.id}
+        style={{
+          flexDirection: "row",
+          width: Dimensions.get('window').width * 0.9,
+          marginHorizontal: Dimensions.get('window').width * 0.05,
+          marginVertical: Dimensions.get('window').height * 0.015,
+        }}
       >
-        <Image source={data.img} style={{ width: 100, height: 100 }} />
+        <Image source={data.img} style={{ width: Dimensions.get('window').width * 0.25, height: Dimensions.get('window').width * 0.25, }} />
         <View
           style={{
-            width: 255,
-            height: 77,
+            width: Dimensions.get('window').width * 0.6,
             justifyContent: "center",
-            marginVertical: 15,
             marginLeft: 10,
           }}
         >
-          <Text style={{ fontWeight: "700" }}>{data.title}</Text>
+          <Text numberOfLines={2} style={{ fontWeight: "700" }}>{data.title}</Text>
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginTop: 10,
+              marginTop: Dimensions.get('window').height * 0.005,
               justifyContent: "space-between",
             }}
           >
             <Text style={{ color: "#757575" }}>Tạo bời: {data.text}</Text>
             <View
               style={{
-                width: 30,
-                height: 30,
                 backgroundColor: "white",
                 borderRadius: 100,
                 alignItems: "center",

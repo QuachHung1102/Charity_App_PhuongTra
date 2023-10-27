@@ -1,21 +1,27 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import HeaderMenuDetail from "../screenComponent/category/HeaderMenuDetail";
 
 const OldMan = () => {
   return (
-    <View style={{ flex: 1 }}>
-      <Image
-        source={require("../storages/endbackground.png")}
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: -1,
-        }}
-      />
+    <View style={{ flex: 1, backgroundColor: "#FFF5F7" }}>
       <HeaderMenuDetail />
+      <View
+        style={{
+          backgroundColor: "#FFF5F7",
+          width: Dimensions.get('window').width,
+          height: 225,
+          transform: [{ translateX: 0 }, { translateY: -100 }],
+          zIndex: -10,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          source={require("../storages/endbackground.png")}
+          resizeMode="contain"
+        />
+      </View>
     </View>
   );
 };

@@ -1,23 +1,36 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from "react-native";
 import React from "react";
 import {
   AntDesign,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const CardRunningMini = () => {
+  const navigation = useNavigation();
   return (
-    <View style={{ height: 342, backgroundColor: "white", borderRadius: 10 }}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("DetailNews")}
+      style={{
+        backgroundColor: "white",
+        width: Dimensions.get('window').width * 0.9,
+        borderRadius: 16,
+        overflow: "hidden",
+      }}
+    >
       <View>
-        <Image source={require("../../storages/cardcategory/img1.png")} />
+        <Image source={require("../../storages/cardcategory/img1.png")}
+          resizeMode="cover"
+          style={{
+            width: Dimensions.get('window').width * 0.9,
+          }}
+        />
       </View>
       <View
         style={{
-          width: 340,
-          height: 162,
-          alignSelf: "center",
-          marginVertical: 15,
+          width: Dimensions.get('window').width * 0.9,
+          padding: Dimensions.get('window').width * 0.05,
         }}
       >
         <View
@@ -27,7 +40,10 @@ const CardRunningMini = () => {
             justifyContent: "space-between",
           }}
         >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}>
             <MaterialCommunityIcons
               name="calendar-clock-outline"
               size={15}
@@ -52,11 +68,10 @@ const CardRunningMini = () => {
             </Text>
           </View>
         </View>
-        <View style={{ height: 30, height: 340, marginTop: 10 }}>
+        <View style={{ marginTop: 10 }}>
           <Text
             style={{
               height: 40,
-              width: 340,
               fontSize: 16,
               fontWeight: 700,
               color: "#20397A",
@@ -90,8 +105,11 @@ const CardRunningMini = () => {
               </Text>
             </View>
           </View>
-          <View style={{ marginVertical: 10 }}>
-            <Image source={require("../../storages/cardnews/bar1.png")} />
+          <View style={{
+            backgroundColor: "#D9D9D9", borderRadius: 10,
+            marginVertical: Dimensions.get('window').height * 0.005,
+          }}>
+            <View style={{ width: '89%', height: 7, backgroundColor: "#FF617D", borderRadius: 10 }}></View>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="gift-outline" size={12} color="#FF617D" />
@@ -138,7 +156,7 @@ const CardRunningMini = () => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

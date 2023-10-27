@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 const Menu = () => {
@@ -30,16 +30,19 @@ const Menu = () => {
     },
   ];
   return (
-    <ScrollView horizontal scrollEnabled={false}>
+    <View style={{
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    }}>
       {menu.map((data, index) => {
         return (
           <View
-            key={index}
+            key={data.text}
             style={{
               width: 55,
               height: 76,
               alignItems: "center",
-              marginRight: 23,
             }}
           >
             <View
@@ -54,6 +57,7 @@ const Menu = () => {
             >
               <Image source={data.logo} />
             </View>
+            <View style={{ height: 4 }}></View>
             <Text
               style={{
                 fontSize: 12,
@@ -66,7 +70,7 @@ const Menu = () => {
           </View>
         );
       })}
-    </ScrollView>
+    </View>
   );
 };
 

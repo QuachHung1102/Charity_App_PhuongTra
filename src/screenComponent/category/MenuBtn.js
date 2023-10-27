@@ -1,7 +1,7 @@
 import {
+  Dimensions,
   FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -81,20 +81,20 @@ const MenuBtn = () => {
   ];
   return (
     <FlatList
+      style={{
+      }}
       scrollEnabled={false}
-      numColumns="5"
       data={menu}
       keyExtractor={(item) => item.id}
+      numColumns={5}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
             onPress={() => navigation.navigate("OldMan")}
             style={{
-              width: 62,
-              height: 86,
+              width: "20%",
               alignItems: "center",
-              marginRight: 15,
-              marginTop: 10,
+              justifyContent: "center",
             }}
           >
             <View
@@ -115,7 +115,6 @@ const MenuBtn = () => {
                 fontWeight: "400",
                 color: "#9D9D9D",
                 marginTop: 5,
-
                 textAlign: "center",
               }}
             >
@@ -124,6 +123,9 @@ const MenuBtn = () => {
           </TouchableOpacity>
         );
       }}
+      ItemSeparatorComponent={
+        <View style={{ height: Dimensions.get('window').width * 0.05 }}></View>
+      }
     />
   );
 };

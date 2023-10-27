@@ -1,374 +1,208 @@
 import {
-  Image,
+  Dimensions,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  ImageBackground,
+  Pressable,
 } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import DonateHistoryItem from "../component/utilities/DonateHistoryItem";
 
 const Donation = () => {
+  const listDonate = [
+    { id: "7", date: "17/12/2022", time: "12:30", donate: "2.000.000", message: "Chúc gia đình luôn khỏe mạnh", cp: "Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo." },
+    { id: "6", date: "10/12/2022", time: "14:30", donate: "500.000", message: "Chúc gia đình luôn khỏe mạnh", cp: "Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo." },
+    { id: "5", date: "15/11/2022", time: "21:30", donate: "800.000", message: "Chúc gia đình luôn khỏe mạnh", cp: "Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo." },
+    { id: "4", date: "15/11/2022", time: "18:00", donate: "200.000", message: "Chúc gia đình luôn khỏe mạnh", cp: "Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo." },
+    { id: "3", date: "15/11/2022", time: "09:00", donate: "900.000", message: "Chúc gia đình luôn khỏe mạnh", cp: "Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo." },
+    { id: "2", date: "20/08/2022", time: "19:00", donate: "100.000", message: "Chúc gia đình luôn khỏe mạnh", cp: "Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo." },
+    { id: "1", date: "20/08/2022", time: "18:58", donate: "50.000", message: "Chúc gia đình luôn khỏe mạnh", cp: "Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo." },
+  ];
   const navigation = useNavigation();
+
+  const RenderScrollView = () => {
+    let objectDonate = {};
+    listDonate.forEach((donate) => {
+      const dateDonate = donate.date;
+      if (!objectDonate[dateDonate]) {
+        objectDonate[dateDonate] = [];
+      }
+      objectDonate[dateDonate] = [...objectDonate[dateDonate], donate];
+    });
+    let arrayDonate = Object.entries(objectDonate);
+    return <>
+      {
+        arrayDonate.map((donateEle) => {
+          return < DonateHistoryItem key={`${donateEle[0]}`} listDonate={donateEle[1]} date={donateEle[0]} />;
+        })
+      }
+    </>;
+
+  }
+  // (< DonateHistoryItem key={`${dateNow}`} listDonate={currentList} />)
+
   return (
-    <View style={{ flex: 1 }}>
-      <Image
-        source={require("../storages/endbackground.png")}
+    <View style={{
+      backgroundColor: "#FFF5F7",
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height,
+    }}>
+      <View
         style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: -1,
+          height: Dimensions.get('window').height * 0.1,
+          width: Dimensions.get('window').width * 0.9,
+          justifyContent: 'flex-end',
+          alignItems: 'flex-start',
+          marginHorizontal: Dimensions.get('window').width * 0.05,
+          marginVertical: Dimensions.get('window').height * 0.02,
         }}
-      />
-      <ScrollView style={{ flex: 1 }}>
-        <View
-          style={{
-            height: 108,
-            alignItems: "center",
-            width: "100%",
-          }}
+      >
+        <View style={[
+          styles.flexRow,
+          {
+            columnGap: Dimensions.get('window').width * 0.05,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }
+        ]}
         >
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              width: 368,
-              height: 40,
-              marginTop: 45,
-            }}
+          <Pressable
+            onPress={() => navigation.goBack()}
           >
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                width: 40,
-                height: 40,
-                backgroundColor: "rgba(0, 0, 0, 0.22)",
-                borderRadius: 50,
-                alignItems: "center",
-                justifyContent: "center",
-                marginRight: 14,
-              }}
-            >
+            <View style={styles.backBtn}>
               <AntDesign name="left" size={30} color="white" />
-            </TouchableOpacity>
-            <Text style={{ fontSize: 24, color: "black", fontWeight: "500" }}>
-              Ủng hộ của tôi
-            </Text>
-          </View>
-        </View>
-        <View>
-          <Image source={require("../storages/total.png")} />
-        </View>
-        <View
-          style={{
-            height: 108,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+            </View>
+          </Pressable>
           <View>
-            <Text style={{ fontSize: 16, fontWeight: "700" }}>
-              Danh sách giao dịch
-            </Text>
-            <Text style={{ width: 368, height: 35, marginTop: 10 }}>
-              Sao kê sẽ hiển thị lịch sử giao dịch trong toàn bộ thời gian chiến
-              dịch được thực hiện.
-            </Text>
+            <Text style={styles.headerTitle}>Ủng hộ của tôi</Text>
           </View>
         </View>
-        <View>
-          <View style={{ height: 195 }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginHorizontal: 30,
-              }}
-            >
-              <Text style={{ fontWeight: "700", fontSize: 16 }}>
-                Hôm nay, ngày 17/12/2022
-              </Text>
-              <Text style={{ fontSize: 16 }}>1 giao dịch</Text>
+      </View>
+      <View style={{
+      }}>
+        <ImageBackground
+          source={require('../storages/toltalBackGround.png')}
+        >
+          <View style={[styles.centered, {
+            width: Dimensions.get('window').width * 0.9,
+            height: Dimensions.get('window').width * 0.9 / 1.56,
+            marginHorizontal: Dimensions.get('window').width * 0.05,
+            paddingVertical: Dimensions.get('window').height * 0.03,
+          }]}>
+            <Text style={styles.scriptText}>Tổng số tiền bạn đã ủng hộ</Text>
+            <Text style={styles.totalText}>{ }3.231.000</Text>
+            <Text style={styles.scriptText}>Cập nhật lần cuối: { } 17/12/2022, 19h</Text>
+            <View style={[styles.flexRow, { columnGap: Dimensions.get('window').width * 0.1 }]}>
+              <View style={styles.centered}>
+                <Text style={styles.scriptText}>Số lần ủng hộ</Text>
+                <Text style={styles.numberText}>30</Text>
+              </View>
+              <View style={{ height: "100%", borderWidth: 0.5, borderColor: "#fff" }}></View>
+              <View style={styles.centered}>
+                <Text style={styles.scriptText}>Số dự án ủng hộ</Text>
+                <Text style={styles.numberText}>21</Text>
+              </View>
             </View>
-            <View
-              style={{
-                width: 368,
-                height: 130,
-                backgroundColor: "#EBE5F7",
-                alignSelf: "center",
-                marginTop: 24,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginHorizontal: 20,
-                  marginTop: 14,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text>Từ:</Text>
-                  <Image
-                    source={require("../storages/avt.png")}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: 30,
-                      marginHorizontal: 5,
-                    }}
-                  />
-                  <Text style={{ color: "#FF617D", fontWeight: "600" }}>
-                    Phương Trà
-                  </Text>
-                </View>
-                <Text style={{ color: "#FF617D", fontWeight: "700" }}>
-                  -200.000
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginHorizontal: 20,
-                  marginTop: 12,
-                }}
-              >
-                <Text style={{ color: "#757575" }}>
-                  Chuc gia dinh luon khoe manh
-                </Text>
-                <Text style={{ color: "#757575" }}>18:58</Text>
-              </View>
-              <View
-                style={{
-                  borderWidth: 0.5,
-                  marginTop: 10,
-                  marginHorizontal: 20,
-                  borderColor: "#757575",
-                }}
-              ></View>
-              <View
-                style={{
-                  height: 26,
-                  flexDirection: "row",
-                  marginHorizontal: 20,
-                  justifyContent: "space-between",
-                  marginTop: 10,
-                }}
-              >
-                <Text style={{ fontSize: 12, color: "#757575" }}>
-                  Đến chiến dịch
-                </Text>
-                <Text
-                  style={{
-                    width: 246,
-                    height: 34,
-                    fontSize: 12,
-                    color: "#20397A",
-                    fontWeight: "600",
-                    marginLeft: 10,
-                  }}
-                >
-                  Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo
-                </Text>
-              </View>
+            <View style={[styles.centered, styles.flexRow, { columnGap: Dimensions.get('window').width * 0.05 }]}>
+              <Text style={styles.cardName}>{ }LUU PHUONG TRA</Text>
             </View>
           </View>
-          <View style={{ height: 195 }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginHorizontal: 30,
-              }}
-            >
-              <Text style={{ fontWeight: "700", fontSize: 16 }}>
-                Hôm nay, ngày 10/12/2022
-              </Text>
-              <Text style={{ fontSize: 16 }}>2 giao dịch</Text>
-            </View>
-            <View
-              style={{
-                width: 368,
-                height: 130,
-                backgroundColor: "#EBE5F7",
-                alignSelf: "center",
-                marginTop: 24,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginHorizontal: 20,
-                  marginTop: 14,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text>Từ:</Text>
-                  <Image
-                    source={require("../storages/avt.png")}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: 30,
-                      marginHorizontal: 5,
-                    }}
-                  />
-                  <Text style={{ color: "#FF617D", fontWeight: "600" }}>
-                    Phương Trà
-                  </Text>
-                </View>
-                <Text style={{ color: "#FF617D", fontWeight: "700" }}>
-                  -200.000
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginHorizontal: 20,
-                  marginTop: 12,
-                }}
-              >
-                <Text style={{ color: "#757575" }}>
-                  Chuc gia dinh luon khoe manh
-                </Text>
-                <Text style={{ color: "#757575" }}>18:58</Text>
-              </View>
-              <View
-                style={{
-                  borderWidth: 0.5,
-                  marginTop: 10,
-                  marginHorizontal: 20,
-                  borderColor: "#757575",
-                }}
-              ></View>
-              <View
-                style={{
-                  height: 26,
-                  flexDirection: "row",
-                  marginHorizontal: 20,
-                  justifyContent: "space-between",
-                  marginTop: 10,
-                }}
-              >
-                <Text style={{ fontSize: 12, color: "#757575" }}>
-                  Đến chiến dịch
-                </Text>
-                <Text
-                  style={{
-                    width: 246,
-                    height: 34,
-                    fontSize: 12,
-                    color: "#20397A",
-                    fontWeight: "600",
-                    marginLeft: 10,
-                  }}
-                >
-                  Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo
-                </Text>
-              </View>
-            </View>
-            <View
-              style={{
-                width: 368,
-                height: 130,
-                backgroundColor: "#EBE5F7",
-                alignSelf: "center",
-                marginTop: 24,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginHorizontal: 20,
-                  marginTop: 14,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text>Từ:</Text>
-                  <Image
-                    source={require("../storages/avt.png")}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: 30,
-                      marginHorizontal: 5,
-                    }}
-                  />
-                  <Text style={{ color: "#FF617D", fontWeight: "600" }}>
-                    Phương Trà
-                  </Text>
-                </View>
-                <Text style={{ color: "#FF617D", fontWeight: "700" }}>
-                  -200.000
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginHorizontal: 20,
-                  marginTop: 12,
-                }}
-              >
-                <Text style={{ color: "#757575" }}>
-                  Chuc gia dinh luon khoe manh
-                </Text>
-                <Text style={{ color: "#757575" }}>18:58</Text>
-              </View>
-              <View
-                style={{
-                  borderWidth: 0.5,
-                  marginTop: 10,
-                  marginHorizontal: 20,
-                  borderColor: "#757575",
-                }}
-              ></View>
-              <View
-                style={{
-                  height: 26,
-                  flexDirection: "row",
-                  marginHorizontal: 20,
-                  justifyContent: "space-between",
-                  marginTop: 10,
-                }}
-              >
-                <Text style={{ fontSize: 12, color: "#757575" }}>
-                  Đến chiến dịch
-                </Text>
-                <Text
-                  style={{
-                    width: 246,
-                    height: 34,
-                    fontSize: 12,
-                    color: "#20397A",
-                    fontWeight: "600",
-                    marginLeft: 10,
-                  }}
-                >
-                  Không bố, mẹ khuyết tật, nữ sinh có thể phải bỏ học vì nghèo
-                </Text>
-              </View>
-            </View>
-          </View>
+        </ImageBackground>
+      </View >
+      <View style={{
+        backgroundColor: "#FFFFFF",
+        marginVertical: Dimensions.get('window').height * 0.01,
+        borderRadius: 10,
+      }}>
+        <View style={{
+          width: Dimensions.get('window').width * 0.8,
+          marginHorizontal: Dimensions.get('window').width * 0.1,
+          marginVertical: Dimensions.get('window').height * 0.01,
+        }}>
+          <Text style={styles.title}>Danh sách giao dịch</Text>
+          <Text style={{ color: '#000', fontSize: 14, fontWeight: '400' }}>Sao kê sẽ hiển thị lịch sử giao dịch trong toàn bộ thời gian chiến dịch thực hiện</Text>
+        </View>
+      </View>
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          height: Dimensions.get('window').height * 0.5,
+        }}>
+        <View style={{
+          width: Dimensions.get('window').width * 0.9,
+          marginHorizontal: Dimensions.get('window').width * 0.05,
+          marginBottom: Dimensions.get('window').height * 0.02,
+        }}>
+          <RenderScrollView />
         </View>
       </ScrollView>
-    </View>
+    </View >
   );
 };
 
 export default Donation;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  rootView: {
+    flex: 1,
+  },
+  flexRow: {
+    flexDirection: "row",
+  },
+  centered: {
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  headerTitle: {
+    color: "#000000",
+    fontSize: 24,
+    fontWeight: "500",
+    letterSpacing: -0.528,
+  },
+  backBtn: {
+    backgroundColor: "#C7BFC1",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: Dimensions.get('window').width * 0.1,
+    height: Dimensions.get('window').width * 0.1,
+    width: Dimensions.get('window').width * 0.1,
+  },
+  scriptText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: "400",
+  },
+  totalText: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: '900',
+  },
+  numberText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  cardNumber: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  cardName: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  title: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: '700',
+  },
+});
