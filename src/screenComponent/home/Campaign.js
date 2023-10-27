@@ -42,6 +42,7 @@ const Campaign = () => {
         }}
       >
         <View
+
           style={{
             flexDirection: "row",
             justifyContent: "space-between",

@@ -3,7 +3,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
+import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
 
 let progressNumberColor = "#000";
 let progressColor = '#D9D9D9';
@@ -11,7 +11,7 @@ let progressColor = '#D9D9D9';
 
 function CampItem({ item }) {
   let image = { uri: 'https://cdnphoto.dantri.com.vn/R96UV8RILpgk057FBZ3n90_B8Ow=/thumb_w/1360/2023/08/24/z4632592106399c54c87a7cac066b5cee00a798667cf7b-crop-1692873287748.jpeg?watermark=true' }
-
+  // Màu chữ của progress
   let progress = 85;
   if (progress >= 80) {
     progressColor = '#3CD24B';
@@ -20,6 +20,7 @@ function CampItem({ item }) {
   } else {
     progressColor = '#EB0000';
   }
+  // Màu nền của remainingDays
   let remainingDays = 32;
   if (remainingDays > 60) {
     progressNumberColor = "#76df81";
@@ -215,13 +216,13 @@ const DetailProfile = () => {
             >BIO người dùng: <Text style={styles.smText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text></Text>
           </View>
           <View style={[styles.flexRow, { columnGap: Dimensions.get('window').width * 0.05, }]}>
-            <Pressable>
+            <Pressable onPress={() => SetContentActive(2)}>
               <View style={[styles.centered, { width: Dimensions.get('window').width * 0.25 }]}>
                 <Text style={styles.textBold900Black}>{ }45</Text>
                 <Text style={styles.smText} numberOfLines={1}>Người theo dõi</Text>
               </View>
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => SetContentActive(2)}>
               <View style={[styles.centered, { width: Dimensions.get('window').width * 0.25 }]}>
                 <Text style={styles.textBold900Black}>{ }345</Text>
                 <Text style={styles.smText} numberOfLines={1}>Đang theo dõi</Text>
@@ -239,7 +240,7 @@ const DetailProfile = () => {
         </View>
 
         {/* My camp */}
-        {(contentActive ?
+        {(contentActive == 1 ?
           <MyCampAndSupport renderItems={renderItems} /> :
           <Follow />
         )}
