@@ -1,7 +1,7 @@
 import {
-  Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, Pressable, ImageBackground, FlatList
+  Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, Pressable, ImageBackground, FlatList, RefreshControl, ActivityIndicator
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
 
@@ -69,7 +69,7 @@ const MyCampAndSupport = ({ renderItems }) => {
   return (
     <View style={[styles.contentContainer, { backgroundColor: '#000000', }]}>
       <View style={styles.myCamp}>
-        <Text style={styles.titleText}>Chiến dịch của bạn</Text>
+        <Text style={styles.titleText}>Chiến dịch của bạn:</Text>
         <FlatList
           horizontal={true}
           data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
@@ -81,7 +81,7 @@ const MyCampAndSupport = ({ renderItems }) => {
         />
       </View>
       <View style={styles.myCamp}>
-        <Text style={styles.titleText}>Chiến dịch của bạn</Text>
+        <Text style={styles.titleText}>Chiến dịch bạn đã ủng hộ:</Text>
         <FlatList
           horizontal={true}
           data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
@@ -101,7 +101,7 @@ function FollowItem({ item }) {
 
   return (
     <View style={[styles.flexRow, { alignItems: 'center', justifyContent: 'space-between' }]}>
-      <View style={[styles.flexRow, { alignItems: 'center', columnGap: Dimensions.get('window').width * 0.025 }]}>
+      <View style={[styles.flexRow, { alignItems: 'center', justifyContent: 'space-between', columnGap: Dimensions.get('window').width * 0.025 }]}>
         <View style={{
           backgroundColor: "#b2b2b2",
           borderRadius: 100,
@@ -112,10 +112,10 @@ function FollowItem({ item }) {
         }}>
           {userIcon}
         </View>
-        <View>
-          <View>
-            <Text>{ }Helpage International</Text>
-            <Text>Theo dõi { }2 năm trước</Text>
+        <View style={{ justifyContent: 'center' }}>
+          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+            <Text style={styles.followerName}>{ }Helpage International</Text>
+            <Text style={styles.followTextTime}>Theo dõi { }2 năm trước</Text>
           </View>
         </View>
       </View>
@@ -139,7 +139,7 @@ const Follow = ({ }) => {
 
   return (
     <View style={[styles.contentContainer, { backgroundColor: "#fff" }]}>
-      <View style={styles.follow}>
+      <View style={[styles.follow, { marginTop: Dimensions.get('window').height * 0.03 }]}>
         <FlatList
           data={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }, { id: 8 }]}
           renderItem={renderFollowItem}
@@ -147,7 +147,7 @@ const Follow = ({ }) => {
           scrollEnabled={false}
           keyExtractor={(item, index) => item.id.toString()}
           showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={() => <View style={{ width: Dimensions.get('window').width * 0.05, height: Dimensions.get('window').height * 0.01 }}></View>}
+          ItemSeparatorComponent={() => <View style={{ width: Dimensions.get('window').width * 0.05, height: Dimensions.get('window').height * 0.02 }}></View>}
         />
       </View>
     </View>
@@ -157,13 +157,80 @@ const Follow = ({ }) => {
 const DetailProfile = () => {
   const navigation = useNavigation();
   const [contentActive, SetContentActive] = useState(1);
+  const [refreshing, SetRefreshing] = useState(false);
+  const [isLoading, SetIsLoading] = useState(true);
 
+  // 
+  const onRefresh = useCallback(() => {
+    SetRefreshing(true);
+    // fetchData(); // Gọi lại fetchData khi người dùng làm mới.
+    setTimeout(() => {
+      SetRefreshing(false);
+    }, 2000);
+    // Thành phần này đã tích hợp trong fetchData. Nếu dùng thì comment lại
+  }, [fetchData]);
+
+  // const splitData = ((fetchedData) => {
+  //   if (fetchedData) {
+  //     setDataIntro(fetchedData.introduce.split('|'));
+  //     setDataReview(fetchedData.review.split('|'));
+  //   }
+  // });
+
+  useEffect(() => {
+    // Simulate fetching data from an API
+    fetchData(); // This is real fetch data, gọi khi render lần đầu.
+  }, [fetchData]);
+
+  const fetchData = useCallback(async () => {
+    try {
+      // const response = await fetch('https://api.example.com/data');
+      // const result = await response.json(); // ép dữ liệu từ JSON sang js
+      // setData(result);
+      // splitData(result);
+
+      // setData(restaurant/* Fetch your data here*/); //Test code
+      // splitData(restaurant);
+      SetIsLoading(false);
+      SetRefreshing(false);
+    } catch (error) {
+      console.error(`Lỗi khi tải dữ liệu!`, error);
+    } finally {
+      SetIsLoading(false);
+      SetRefreshing(false);
+    }
+  }, []);
+  // 
   const renderItems = ({ item }) => {
     return <CampItem item={item} />
   }
 
+  let contentView = <MyCampAndSupport renderItems={renderItems} />;
+  if (contentActive == 1) {
+    contentView = <MyCampAndSupport renderItems={renderItems} />
+  } else if (contentActive == 2) {
+    contentView = <Follow />;
+  } else if (contentActive == 3) {
+    contentView = <Follow />;
+  }
+
+  if (isLoading) {
+    return (
+      <View style={[{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: "center",
+        backgroundColor: "#FFF5F7",
+        rowGap: 15,
+      }]}>
+        <ActivityIndicator size={"large"} />
+        <Text>Loading data</Text>
+      </View>
+    )
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, contentActive != 1 ? { backgroundColor: "#000" } : null]}>
       <View style={styles.proFileHeader}>
         <View style={[styles.flexRow, {
           columnGap: Dimensions.get('window').width * 0.05,
@@ -174,8 +241,8 @@ const DetailProfile = () => {
           <Pressable
             onPress={() => navigation.goBack()}
           >
-            <View style={styles.backBtn}>
-              <AntDesign name="left" size={30} color="white" />
+            <View style={[styles.backBtn, contentActive != 1 ? { backgroundColor: "#000" } : null]}>
+              <AntDesign name="left" size={Dimensions.get('window').width * 0.1} color="white" />
             </View>
           </Pressable>
           <View>
@@ -185,8 +252,14 @@ const DetailProfile = () => {
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
       >
-        <View style={[styles.centered, { height: Dimensions.get('window').height * 0.4, marginBottom: Dimensions.get('window').height * 0.03, }]}>
+        <View style={[styles.centered, { marginBottom: Dimensions.get('window').height * 0.01, }, contentActive == 1 ? { height: Dimensions.get('window').height * 0.4, } : { height: Dimensions.get('window').height * 0.275, }]}>
           <View style={{ width: Dimensions.get('window').width * 0.25, height: Dimensions.get('window').width * 0.25 }}>
             <ImageBackground
               source={require('../storages/Ellipse37.png')}
@@ -204,34 +277,38 @@ const DetailProfile = () => {
             </ImageBackground>
           </View>
           <View style={[styles.centered, { rowGap: Dimensions.get('window').height * 0.005 }]}>
-            <Text style={styles.textBold900Black}>Lưu Phương Trà</Text>
-            <Text>@phuongtra12</Text>
+            <Text style={[styles.textBold900Black, contentActive != 1 ? { color: "#fff" } : null]}>{ }Lưu Phương Trà</Text>
+            <Text style={contentActive != 1 ? { color: "#757575", fontSize: 14 } : null}>@phuongtra12</Text>
             <Text
               numberOfLines={2}
               style={[styles.smText, {
                 width: Dimensions.get('window').width * 0.75,
                 textAlign: 'center',
                 fontWeight: '700',
-              },]}
+              },
+              contentActive != 1 ? { display: 'none' } : null,
+              ]}
             >BIO người dùng: <Text style={styles.smText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text></Text>
           </View>
-          <View style={[styles.flexRow, { columnGap: Dimensions.get('window').width * 0.05, }]}>
+          <View style={[styles.flexRow, {
+            columnGap: Dimensions.get('window').width * 0.05,
+          }, contentActive != 1 ? { width: Dimensions.get('window').width * 0.69 } : null]}>
             <Pressable onPress={() => SetContentActive(2)}>
-              <View style={[styles.centered, { width: Dimensions.get('window').width * 0.25 }]}>
-                <Text style={styles.textBold900Black}>{ }45</Text>
-                <Text style={styles.smText} numberOfLines={1}>Người theo dõi</Text>
+              <View style={[contentActive != 1 ? [styles.flexRow, { width: Dimensions.get('window').width * 0.32, columnGap: Dimensions.get('window').width * 0.015, }] : { width: Dimensions.get('window').width * 0.25 }, styles.centered, contentActive == 2 ? { borderBottomWidth: 1, borderBottomColor: "#fff" } : null]}>
+                <Text style={[contentActive == 1 ? styles.textBold900Black : styles.followTextActive, contentActive == 2 ? styles.contentTextActive : null]}>{ }45</Text>
+                <Text style={[contentActive == 1 ? styles.smText : styles.followTextActive, contentActive == 2 ? styles.contentTextActive : null]} numberOfLines={1}>Người theo dõi</Text>
               </View>
             </Pressable>
-            <Pressable onPress={() => SetContentActive(2)}>
-              <View style={[styles.centered, { width: Dimensions.get('window').width * 0.25 }]}>
-                <Text style={styles.textBold900Black}>{ }345</Text>
-                <Text style={styles.smText} numberOfLines={1}>Đang theo dõi</Text>
+            <Pressable onPress={() => SetContentActive(3)}>
+              <View style={[contentActive != 1 ? [styles.flexRow, { width: Dimensions.get('window').width * 0.32, columnGap: Dimensions.get('window').width * 0.015, }] : { width: Dimensions.get('window').width * 0.25 }, styles.centered, contentActive == 3 ? { borderBottomWidth: 1, borderBottomColor: "#fff" } : null]}>
+                <Text style={[contentActive == 1 ? styles.textBold900Black : styles.followTextActive, contentActive == 3 ? styles.contentTextActive : null]}>{ }345</Text>
+                <Text style={[contentActive == 1 ? styles.smText : styles.followTextActive, contentActive == 3 ? styles.contentTextActive : null]} numberOfLines={1}>Đang theo dõi</Text>
               </View>
             </Pressable>
             <Pressable
               onPress={() => navigation.navigate('Donation')}
             >
-              <View style={[styles.centered, { width: Dimensions.get('window').width * 0.25 }]}>
+              <View style={[styles.centered, { width: Dimensions.get('window').width * 0.25 }, contentActive != 1 ? { display: 'none' } : null]}>
                 <Text style={styles.textBold900Black}>{ }30</Text>
                 <Text style={styles.smText} numberOfLines={1}>Lượt ủng hộ</Text>
               </View>
@@ -239,12 +316,8 @@ const DetailProfile = () => {
           </View>
         </View>
 
-        {/* My camp */}
-        {(contentActive == 1 ?
-          <MyCampAndSupport renderItems={renderItems} /> :
-          <Follow />
-        )}
-
+        {/* Content View */}
+        {contentView}
 
       </ScrollView >
     </View >
@@ -308,6 +381,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.308,
     color: '#757575',
   },
+  followTextActive: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: '400',
+  },
   contentContainer: {
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
@@ -360,5 +438,21 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.85,
     marginHorizontal: Dimensions.get('window').width * 0.075,
     backgroundColor: "#fff",
-  }
+  },
+  followerName: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  followTextTime: {
+    color: "#757575",
+    fontSize: 12,
+    fontWeight: '400',
+    lineHeight: 12 * 1.5,
+  },
+  contentTextActive: {
+    // textDecorationLine: 'underline',
+    fontWeight: '700',
+  },
+
 });
