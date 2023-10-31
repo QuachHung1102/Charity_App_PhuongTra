@@ -63,6 +63,15 @@ const DetailNews = (props) => {
             <View style={{ backgroundColor: "#FC7900", width: "10%", height: 10 }}></View>
           </View>
         </View>
+        <View style={[styles.flexRow, { width: Dimensions.get('window').width * 0.85, alignItems: 'center', alignSelf: 'center', justifyContent: 'space-between' }]}>
+          <View style={styles.flexRow}>
+            <Text>Đã đạt được:</Text>
+            <Text>7.000.000{ } VND</Text>
+          </View>
+          <View>
+            <Text>10{ }%</Text>
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
