@@ -2,10 +2,17 @@ import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View }
 import React, { useState } from "react";
 import { Image } from "react-native";
 import Follow from "../../screen/Follow";
-import Menu from "../../screen/Menu";
+import CategoryMenu from "../../screen/CategoryMenu";
+import { useEffect } from "react";
 
-const Header = () => {
+const Header = ({ screenString }) => {
   const [screen, setScreen] = useState("screen1");
+  useEffect(() => {
+    if (screenString) {
+      setScreen(screenString);
+    }
+  }, [screenString]);
+
   return (
     <View style={{ borderRadius: 25 }}>
       <View style={{
@@ -71,7 +78,7 @@ const Header = () => {
         height: Dimensions.get('window').height * 0.8,
       }}>
         {screen === "screen1" && <Follow />}
-        {screen === "screen2" && <Menu />}
+        {screen === "screen2" && <CategoryMenu />}
       </View>
     </View>
   );

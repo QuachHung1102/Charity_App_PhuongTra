@@ -2,10 +2,11 @@ import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import HeaderMenuDetail from "../screenComponent/category/HeaderMenuDetail";
 
-const OldMan = () => {
+const MenuItem = ({ route }) => {
+  const params = route.params;
   return (
     <View style={{ flex: 1, backgroundColor: "#FFF5F7" }}>
-      <HeaderMenuDetail />
+      <HeaderMenuDetail params={params} />
       <View
         style={{
           backgroundColor: "#FFF5F7",
@@ -26,6 +27,6 @@ const OldMan = () => {
   );
 };
 
-export default OldMan;
+export default MenuItem;
 
 const styles = StyleSheet.create({});

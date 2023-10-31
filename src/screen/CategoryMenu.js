@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import React from "react";
 import MenuBtn from "../screenComponent/category/MenuBtn";
 
-const Menu = () => {
+const CategoryMenu = () => {
   return (
     <View style={{ backgroundColor: "#FFF5F7", flex: 1 }}>
       <View style={{
@@ -21,6 +21,6 @@ const Menu = () => {
 };
 
 
-export default Menu;
+export default CategoryMenu;
 
 const styles = StyleSheet.create({});

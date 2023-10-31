@@ -66,7 +66,7 @@ const MenuBtn = () => {
     {
       id: 11,
       logo: require("../../storages/menu/logo12.png"),
-      text: "Dân tộc thiểu số",
+      text: "Dân tộc...",
     },
     {
       id: 12,
@@ -90,7 +90,12 @@ const MenuBtn = () => {
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
-            onPress={() => navigation.navigate("OldMan")}
+            onPress={() => navigation.navigate("MenuItem", {
+              params: {
+                name: item.text,
+                logo: item.logo,
+              }
+            })}
             style={{
               width: "20%",
               alignItems: "center",

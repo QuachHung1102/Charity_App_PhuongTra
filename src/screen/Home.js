@@ -6,12 +6,12 @@ import Menu from "../screenComponent/home/Menu";
 import Campaign from "../screenComponent/home/Campaign";
 import CardNews from "../screenComponent/home/CardNews";
 import CardNews_1 from "../screenComponent/home/CardNews_1";
-import { FlashList } from "@shopify/flash-list";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <View style={{ flex: 1, }}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           backgroundColor: "#FFF5F7",
         }}
@@ -111,7 +111,7 @@ const Home = () => {
             Danh mục
           </Text>
           <View style={{ marginTop: 14 }}>
-            <Menu />
+            <Menu navigation={navigation} />
           </View>
         </View>
 

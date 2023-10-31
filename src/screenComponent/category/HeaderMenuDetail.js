@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,7 +7,7 @@ import New from "../../screen/New";
 import Following from "../../screen/Following";
 import HighLight from "../../screen/HighLight";
 
-const HeaderMenuDetail = () => {
+const HeaderMenuDetail = ({ params }) => {
   const navigation = useNavigation();
   const [screen, setScreen] = useState("screen1");
   return (
@@ -33,7 +33,7 @@ const HeaderMenuDetail = () => {
             <View style={{ flexDirection: "row", alignItems: "center", }}>
               <AntDesign
                 name="left"
-                size={35}
+                size={Dimensions.get("window").width * 0.1}
                 color="black"
                 onPress={() => navigation.goBack()}
               />
@@ -48,7 +48,7 @@ const HeaderMenuDetail = () => {
                   marginHorizontal: Dimensions.get('window').width * 0.02,
                 }}
               >
-                <Image source={require("../../storages/menu/logo11.png")} />
+                <Image source={params.params.logo} />
               </View>
 
               <Text
@@ -59,7 +59,7 @@ const HeaderMenuDetail = () => {
                   fontWeight: "900",
                 }}
               >
-                Người già
+                {params.params.name}
               </Text>
             </View>
             <Image source={require("../../storages/icon/bell.png")} />

@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,16 +9,21 @@ import Category from "../screen/Category";
 import Plus from "../screen/Plus";
 import Save from "../screen/Save";
 import Profile from "../screen/Profile";
-import OldMan from "../screen/OldMan";
 import Donation from "../screen/Donation";
 import DetailProfile from "../screen/DetailProfile";
 import DetailNews from "../screen/DetailNews";
+import Header from "../screenComponent/category/Header";
+import MenuItem from "../screen/MenuItem";
+import { StatusBar } from "expo-status-bar";
 
 const HomeStack = createNativeStackNavigator();
 function HomeStacks() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="Home Stack" component={Home} />
+      <HomeStack.Group>
+        <HomeStack.Screen name="Home" component={Home} />
+        {/* <CategoryStack.Screen name="Category" component={Category} /> */}
+      </HomeStack.Group>
     </HomeStack.Navigator>
   );
 }
@@ -28,7 +32,9 @@ const CategoryStack = createNativeStackNavigator();
 function CategoryStacks() {
   return (
     <CategoryStack.Navigator screenOptions={{ headerShown: false }}>
-      <CategoryStack.Screen name="Category Stack" component={Category} />
+      <CategoryStack.Group>
+        <CategoryStack.Screen name="Category" component={Category} />
+      </CategoryStack.Group>
     </CategoryStack.Navigator>
   );
 }
@@ -37,7 +43,7 @@ const PlusStack = createNativeStackNavigator();
 function PlusStacks() {
   return (
     <PlusStack.Navigator screenOptions={{ headerShown: false }}>
-      <PlusStack.Screen name="Plus Stack" component={Plus} />
+      <PlusStack.Screen name="Plus" component={Plus} />
     </PlusStack.Navigator>
   );
 }
@@ -46,7 +52,7 @@ const SaveStack = createNativeStackNavigator();
 function SaveStacks() {
   return (
     <SaveStack.Navigator screenOptions={{ headerShown: false }}>
-      <SaveStack.Screen name="Save Stack" component={Save} />
+      <SaveStack.Screen name="Save" component={Save} />
     </SaveStack.Navigator>
   );
 }
@@ -55,7 +61,7 @@ const ProfileStack = createNativeStackNavigator();
 function ProfileStacks() {
   return (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-      <ProfileStack.Screen name="Profile Stack" component={Profile} />
+      <ProfileStack.Screen name="Profile" component={Profile} />
     </ProfileStack.Navigator>
   );
 }
@@ -67,7 +73,6 @@ function Tabs() {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          elevation: 0,
           backgroundColor: "#FFFFFF",
           width: "100%",
           height: "9%",
@@ -84,7 +89,7 @@ function Tabs() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeStacks"
         component={HomeStacks}
         options={{
           headerShown: false,
@@ -109,7 +114,7 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Category"
+        name="CategoryStacks"
         component={CategoryStacks}
         options={{
           headerShown: false,
@@ -134,7 +139,7 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Plus"
+        name="PlusStacks"
         component={PlusStacks}
         options={{
           headerShown: false,
@@ -171,7 +176,7 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Save"
+        name="SaveStacks"
         component={SaveStacks}
         options={{
           headerShown: false,
@@ -196,7 +201,7 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileStacks"
         component={ProfileStacks}
         options={{
           headerShown: false,
@@ -226,15 +231,20 @@ function Tabs() {
 const Stacks = createNativeStackNavigator();
 const RootStack = () => {
   return (
-    <NavigationContainer>
-      <Stacks.Navigator screenOptions={{ headerShown: false }}>
-        <Stacks.Screen name="Tabs" component={Tabs} />
-        <Stacks.Screen name="OldMan" component={OldMan} />
-        <Stacks.Screen name="Donation" component={Donation} />
-        <Stacks.Screen name="DetailProfile" component={DetailProfile} />
-        <Stacks.Screen name="DetailNews" component={DetailNews} />
-      </Stacks.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        <Stacks.Navigator initialRouteName="Tabs" screenOptions={{ headerShown: false }}>
+          <Stacks.Group>
+            <Stacks.Screen name="Tabs" component={Tabs} />
+          </Stacks.Group>
+          <Stacks.Screen name="MenuItem" component={MenuItem} />
+          <Stacks.Screen name="Donation" component={Donation} />
+          <Stacks.Screen name="DetailProfile" component={DetailProfile} />
+          <Stacks.Screen name="DetailNews" component={DetailNews} />
+        </Stacks.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 
