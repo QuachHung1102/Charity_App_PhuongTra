@@ -1,11 +1,9 @@
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Pressable, ImageBackground } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { ImageBackground } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-const DetailNews = (props) => {
+const DetailNews = ({ navigation }) => {
   const size = Dimensions.get('window').width * 0.08;
   return (
     <View style={styles.container}>
@@ -20,12 +18,18 @@ const DetailNews = (props) => {
             <View
               style={[styles.headerContent, styles.flexRow,]}
             >
-              <View style={[styles.btnNavigationHead, { width: size * 1.5, height: size * 1.5 }]}>
-                <AntDesign name="left" size={size} color="#fff" />
-              </View>
-              <View style={[styles.btnNavigationHead, { width: size * 1.5, height: size * 1.5 }]}>
-                <AntDesign name="sharealt" size={size} color="#fff" />
-              </View>
+              <Pressable
+                onPress={() => navigation.goBack()}
+              >
+                <View style={[styles.btnNavigationHead, { width: size * 1.5, height: size * 1.5 }]}>
+                  <AntDesign name="left" size={size} color="#fff" />
+                </View>
+              </Pressable>
+              <Pressable>
+                <View style={[styles.btnNavigationHead, { width: size * 1.5, height: size * 1.5 }]}>
+                  <AntDesign name="sharealt" size={size} color="#fff" />
+                </View>
+              </Pressable>
             </View>
           </ImageBackground>
         </View>
