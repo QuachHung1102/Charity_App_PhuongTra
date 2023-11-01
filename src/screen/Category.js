@@ -3,9 +3,13 @@ import React from "react";
 import Header from "../screenComponent/category/Header";
 
 const Category = ({ route }) => {
+  let screen = "screen1";
+  if (route.params) {
+    screen = route.params.screenString
+  }
   return (
     <View style={{ flex: 1 }}>
-      <Header screenString={route.params.screenString} />
+      <Header screenString={screen} />
     </View>
   );
 };

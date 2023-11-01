@@ -58,18 +58,28 @@ const DetailNews = (props) => {
             <Text style={[styles.fS14, styles.nameText]}>Phương Trà{ } <Text style={styles.textSm}>đã tạo chiến dịch</Text></Text>
           </View>
         </View>
-        <View style={{ width: Dimensions.get('window').width * 0.85, marginVertical: Dimensions.get('window').width * 0.05, alignSelf: 'center', borderRadius: 20, overflow: 'hidden' }}>
+        <View style={{ width: Dimensions.get('window').width * 0.85, marginVertical: Dimensions.get('window').width * 0.025, alignSelf: 'center', borderRadius: 20, overflow: 'hidden' }}>
           <View style={{ width: "100%", height: 10, alignSelf: "center", backgroundColor: "#D9D9D9", }}>
             <View style={{ backgroundColor: "#FC7900", width: "10%", height: 10 }}></View>
           </View>
         </View>
         <View style={[styles.flexRow, { width: Dimensions.get('window').width * 0.85, alignItems: 'center', alignSelf: 'center', justifyContent: 'space-between' }]}>
-          <View style={styles.flexRow}>
-            <Text>Đã đạt được:</Text>
-            <Text>7.000.000{ } VND</Text>
+          <View style={[styles.flexRow, styles.fS14]}>
+            <Text>Đã đạt được: </Text>
+            <Text style={{ fontWeight: '700', color: "#FC7900" }}>7.000.000{ } VND</Text>
           </View>
           <View>
             <Text>10{ }%</Text>
+          </View>
+        </View>
+        <View style={{ width: Dimensions.get('window').width * 0.85, alignSelf: 'center' }}>
+          <View>
+
+          </View>
+          <View>
+            <Text style={[{ fontSize: 12, fontWeight: '500', color: '#000' }]}>Nguyễn Minh Thảo, Trịnh Hương Nhung{ }
+              <Text style={[{ fontSize: 12, fontWeight: '400' }]}>và 98{ } người khác đã ủng hộ</Text>
+            </Text>
           </View>
         </View>
       </ScrollView>
